@@ -43,11 +43,10 @@ def takeCommand():
 
 if __name__ == "__main__":
     query = takeCommand().lower()  # Convert the query to lowercase for uniformity
-    print(f"Converted query to lowercase: {query}")
-
+    print(query)
+    
     if "wikipedia" in query:
         speak("Searching Wikipedia")
-        query = query.replace('wikipedia', "").strip()
         try:
             results = wikipedia.summary(query, sentences=1)
             speak("According to Wikipedia")

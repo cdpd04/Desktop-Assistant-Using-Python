@@ -1,35 +1,30 @@
 import pyttsx3
 import speech_recognition as sr
-import datetime
 import wikipedia
-import webbrowser
-import os
 
 
-# Taking voice from my system
+# Initialize the speech engine
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
-# print(voices[1].id)
 
-engine.setProperty('voice', voices[0].id)
-engine.setProperty('rate', 150)
+engine.setProperty('voice', voices[0].id)  # Use the first voice in the list
+engine.setProperty('rate', 150)  # Set the speed of the voice
 
 
-#speak function
+# Function to convert text to speech
 def speak(text):
     """This function takes text and returns voice
 
     Args:
-        text (_type_): string
+        text (str): string to be spoken
     """
     engine.say(text)
     engine.runAndWait()
 
 
-# speech recognition function
+# Function to recognize voice and convert it to text
 def takeCommand():
-    """this function will recognize voice & return text
-    """
+    """This function will recognize voice & return text"""
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
@@ -40,12 +35,24 @@ def takeCommand():
             print("Recognizing...")
             query = r.recognize_google(audio, language='en-in')
             print(f"User said: {query}\n")
-
         except Exception as e:
             print("Say that again please...")
             return "None"
         return query
 
 
-text = takeCommand()
-speak(text)
+if __name__ == "__main__":
+    query = takeCommand().lower()  # Convert the query to lowercase for uniformity
+    print(f"Converted query to lowercase: {query}")
+
+    if "wikipedia" in query:
+        speak("Searching Wikipedia")
+        query = query.replace('wikipedia', "").strip()
+        try:
+            results = wikipedia.summary(query, sentences=1)
+            speak("According to Wikipedia")
+            print(results)
+            speak(results)
+        except Exception as e:
+            speak("Sorry, I couldn't find anything on Wikipedia.")
+            print("Error:", e)

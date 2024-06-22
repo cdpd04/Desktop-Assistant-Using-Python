@@ -66,3 +66,5 @@ if __name__ == "__main__":
            
         if "stop" in query:
             break
+        elif "time" in query:
+            Time = datetime.datetime.now(),strftime("%H:%M:%S")

@@ -63,8 +63,13 @@ if __name__ == "__main__":
             speak("According to Wikipedia")
             print(results)
             speak(results)
-           
+            
+        #This condition statement is used to break the loop
         if "stop" in query:
             break
+        
+        
+        # The below condition statement is used to specify the time 
         elif "time" in query:
-            Time = datetime.datetime.now(),strftime("%H:%M:%S")
+            strTime = datetime.datetime.now().strftime("%H:%M:%S")
+            speak(f"OK{strTime}")

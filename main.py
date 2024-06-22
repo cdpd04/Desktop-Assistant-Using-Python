@@ -1,7 +1,8 @@
 import pyttsx3
 import speech_recognition as sr
 import wikipedia
-
+import datetime
+import os
 
 # Initialize the speech engine
 engine = pyttsx3.init('sapi5')
@@ -40,18 +41,28 @@ def takeCommand():
             return "None"
         return query
 
-
-if __name__ == "__main__":
-    query = takeCommand().lower()  # Convert the query to lowercase for uniformity
-    print(query)
+def wish_me():
+    hour = (datetime.datetime.now().hour)
+    if hour>=0 and hour<12:
+        speak("Good Morning")
+    elif hour>=12 and hour<=18:
+        speak("Good Afternoon")
+    else:
+        speak("Good Evening")
+    speak("I am Assistant. Tell me How can I help you")
     
-    if "wikipedia" in query:
-        speak("Searching Wikipedia")
-        try:
+if __name__ == "__main__":
+    wish_me()
+    while True:
+        query = takeCommand().lower()  # Convert the query to lowercase for uniformity
+        print(query)
+    
+        if "wikipedia" in query:
+            speak("Searching Wikipedia")
             results = wikipedia.summary(query, sentences=1)
             speak("According to Wikipedia")
             print(results)
             speak(results)
-        except Exception as e:
-            speak("Sorry, I couldn't find anything on Wikipedia.")
-            print("Error:", e)
+           
+        if "stop" in query:
+            break

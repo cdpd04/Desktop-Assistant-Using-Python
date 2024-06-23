@@ -3,7 +3,7 @@ import speech_recognition as sr
 import wikipedia
 import datetime
 import os
-
+from src.speak_function import *
 # Initialize the speech engine
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -11,8 +11,6 @@ voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)  # Use the first voice in the list
 engine.setProperty('rate', 150)  # Set the speed of the voice
 
-
-# Function to convert text to speech
 def speak(text):
     """This function takes text and returns voice
 

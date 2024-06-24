@@ -47,4 +47,3 @@ def llm_model_object(user_text):
     result=response.text
     
     return result
-    
